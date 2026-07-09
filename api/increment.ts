@@ -16,11 +16,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (req.method !== 'POST') {
+    console.warn(`[Dashboard API] Method not allowed: ${req.method}`);
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  console.log(`[Dashboard API] Incoming payload:`, req.body);
+
   const { website, type, name, email } = req.body;
   if (!website || !['signup', 'contact'].includes(type)) {
+    console.error(`[Dashboard API] Invalid payload parameters. website: ${website}, type: ${type}`);
     return res.status(400).json({ error: 'Invalid payload parameters' });
   }
 
@@ -33,6 +37,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({ success: true, ignored: true, message: 'Ignored test lead' });
   }
 
+  console.log(`[Dashboard API] Processing valid lead for ${website} (Type: ${type}, Name: ${name}, Email: ${email})`);
+
   try {
     // 1. Find leads.json URL in the blob store
     const { blobs } = await list();
@@ -44,14 +50,35 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const fileRes = await fetch(leadsBlob.url);
       if (fileRes.ok) {
         leadsData = await fileRes.json();
+      } else {
+        console.warn(`[Dashboard API] Failed to fetch leads.json from blob url: ${leadsBlob.url}`);
       }
+    } else {
+      console.log(`[Dashboard API] leads.json not found in blob store. Initializing new file.`);
     }
 
+    // Normalize website name here if needed
+    let normalizedWebsite = website;
+    if (normalizedWebsite === 'Novara') normalizedWebsite = 'Soltera Finance';
+    if (normalizedWebsite === 'Meridian Capital Review') normalizedWebsite = 'The Report Desk';
+
     // 2. Initialize or update the counts
-    if (!leadsData[website]) {
-      leadsData[website] = { signup: 0, contact: 0 };
+    if (!leadsData[normalizedWebsite]) {
+      leadsData[normalizedWebsite] = { signup: 0, contact: 0 };
     }
-    leadsData[website][type as 'signup' | 'contact'] += 1;
+    // Also merge old data if it existed under the old name
+    if (normalizedWebsite === 'Soltera Finance' && leadsData['Novara']) {
+       leadsData[normalizedWebsite].signup += leadsData['Novara'].signup || 0;
+       leadsData[normalizedWebsite].contact += leadsData['Novara'].contact || 0;
+       delete leadsData['Novara'];
+    }
+    if (normalizedWebsite === 'The Report Desk' && leadsData['Meridian Capital Review']) {
+       leadsData[normalizedWebsite].signup += leadsData['Meridian Capital Review'].signup || 0;
+       leadsData[normalizedWebsite].contact += leadsData['Meridian Capital Review'].contact || 0;
+       delete leadsData['Meridian Capital Review'];
+    }
+
+    leadsData[normalizedWebsite][type as 'signup' | 'contact'] += 1;
 
     // 3. Write back to blob store
     const updatedBlob = await put('leads.json', JSON.stringify(leadsData), {
@@ -59,9 +86,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       addRandomSuffix: false
     });
 
+    console.log(`[Dashboard API] Successfully updated counts for ${normalizedWebsite}. New totals:`, leadsData[normalizedWebsite]);
+
     return res.status(200).json({ success: true, data: leadsData, url: updatedBlob.url });
   } catch (err: any) {
-    console.error('Error updating leads:', err);
+    console.error('[Dashboard API] Error updating leads:', err);
     return res.status(500).json({ error: err.message || 'Internal Server Error' });
   }
 }

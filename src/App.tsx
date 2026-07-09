@@ -18,9 +18,9 @@ const WEBSITES: WebsiteInfo[] = [
   // July 2026 batch
   { name: 'VortexCrypto', folder: 'JULY Autodigx/chronicle-consult', month: 'July 2026' },
   { name: 'The Asset Office', folder: 'JULY Autodigx/global-wealth-architects', month: 'July 2026' },
-  { name: 'Novara', folder: 'JULY Autodigx/Soltera Finance', month: 'July 2026' },
+  { name: 'Soltera Finance', folder: 'JULY Autodigx/Soltera Finance', month: 'July 2026' },
   { name: 'Revelle Partners', folder: 'JULY Autodigx/soltera-vision', month: 'July 2026' },
-  { name: 'Meridian Capital Review', folder: 'JULY Autodigx/The Report Desk', month: 'July 2026' },
+  { name: 'The Report Desk', folder: 'JULY Autodigx/The Report Desk', month: 'July 2026' },
   { name: 'Zyvora Finance', folder: 'JULY Autodigx/Zyvera Capital', month: 'July 2026' },
   
   // June 2026 batch
