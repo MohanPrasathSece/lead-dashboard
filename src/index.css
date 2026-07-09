@@ -359,16 +359,16 @@ body {
 /* Desktop: Exactly 3 cards per row */
 .website-grid {
   display: grid;
-  grid-template-cols: repeat(3, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
 }
 
 /* Card Styling */
 .website-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 1.5rem;
+  border-radius: 12px;
+  padding: 1.25rem;
   position: relative;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01), 0 1px 2px rgba(0, 0, 0, 0.02);
   transition: all 0.2s ease;
