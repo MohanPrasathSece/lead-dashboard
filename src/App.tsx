@@ -27,8 +27,6 @@ const WEBSITES: WebsiteInfo[] = [
   { name: 'Aetheris', folder: 'Aetheris Crypto/aetheris-react', month: 'June 2026' },
   { name: 'AtlasLedger', folder: 'Atlas Ledger (17)', month: 'June 2026' },
   { name: 'Aurore Capital', folder: 'Aurore Capital/quantnova-ai-insights-main', month: 'June 2026' },
-  { name: 'AutoDigiX', folder: 'Auto digix APEX Tempalte/Apex-RevOps-main', month: 'June 2026' },
-  { name: 'AutoDigiX Capital', folder: 'Autodigix Animated/autodigix-growth-engine-main', month: 'June 2026' },
   { name: 'Bulletin Financier', folder: 'Bulletin Finance', month: 'June 2026' },
   { name: 'Lumen', folder: 'Cipher Capital (18)', month: 'June 2026' },
   { name: 'Ciphera Intelligence', folder: 'Ciphera Intelligence/kinetic-canvas-main', month: 'June 2026' },

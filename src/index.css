@@ -455,7 +455,7 @@ body {
 /* Inner card grids */
 .card-counters {
   display: grid;
-  grid-template-cols: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 0.75rem;
   margin-bottom: 1.25rem;
 }
@@ -506,4 +506,78 @@ body {
   font-size: 0.85rem;
   font-weight: 700;
   color: #111827;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .website-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-layout {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 1.5rem;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .sidebar-status {
+    margin-bottom: 0.5rem;
+  }
+  
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .sidebar-stats-section {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 0.5rem;
+  }
+  
+  .sidebar-stat-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .main-content {
+    padding: 1.5rem;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .search-bar-wrapper {
+    max-width: 100%;
+  }
+  
+  .refresh-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .website-grid {
+    grid-template-columns: 1fr;
+  }
 }
