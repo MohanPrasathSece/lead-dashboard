@@ -61,6 +61,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let normalizedWebsite = website;
     if (normalizedWebsite === 'Novara') normalizedWebsite = 'Soltera Finance';
     if (normalizedWebsite === 'Meridian Capital Review') normalizedWebsite = 'The Report Desk';
+    if (normalizedWebsite === 'Stellar Wealth') normalizedWebsite = 'The Ledger Capital';
 
     // 2. Initialize or update the counts
     if (!leadsData[normalizedWebsite]) {
@@ -76,6 +77,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
        leadsData[normalizedWebsite].signup += leadsData['Meridian Capital Review'].signup || 0;
        leadsData[normalizedWebsite].contact += leadsData['Meridian Capital Review'].contact || 0;
        delete leadsData['Meridian Capital Review'];
+    }
+    if (normalizedWebsite === 'The Ledger Capital' && leadsData['Stellar Wealth']) {
+       leadsData[normalizedWebsite].signup += leadsData['Stellar Wealth'].signup || 0;
+       leadsData[normalizedWebsite].contact += leadsData['Stellar Wealth'].contact || 0;
+       delete leadsData['Stellar Wealth'];
     }
 
     leadsData[normalizedWebsite][type as 'signup' | 'contact'] += 1;
