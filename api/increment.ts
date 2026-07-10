@@ -83,7 +83,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // 3. Write back to blob store
     const updatedBlob = await put('leads.json', JSON.stringify(leadsData), {
       access: 'public',
-      addRandomSuffix: false
+      addRandomSuffix: false,
+      allowOverwrite: true
     });
 
     console.log(`[Dashboard API] Successfully updated counts for ${normalizedWebsite}. New totals:`, leadsData[normalizedWebsite]);
