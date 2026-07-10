@@ -16,6 +16,7 @@ interface WebsiteInfo {
 
 const WEBSITES: WebsiteInfo[] = [
   // July 2026 batch
+  { name: 'The Ledger Capital', folder: 'JULY Autodigx/stellar-wallet', month: 'July 2026' },
   { name: 'VortexCrypto', folder: 'JULY Autodigx/chronicle-consult', month: 'July 2026' },
   { name: 'The Asset Office', folder: 'JULY Autodigx/global-wealth-architects', month: 'July 2026' },
   { name: 'Soltera Finance', folder: 'JULY Autodigx/Soltera Finance', month: 'July 2026' },
