@@ -22,6 +22,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
     return res.status(200).json(leadsData);
   } catch (err: any) {
+    const rawMsg = (err.message || err.toString() || "");
+    if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+      if (typeof res.status === 'function') {
+        return res.status(400).json({ error: "You have already contacted us pls wait" });
+      } else {
+        res.statusCode = 400;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "You have already contacted us pls wait" }));
+        return;
+      }
+    }
+
     console.error('Error fetching leads:', err);
     return res.status(500).json({ error: err.message || 'Internal Server Error' });
   }
