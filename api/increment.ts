@@ -1,5 +1,9 @@
-import { put, list } from '@vercel/blob';
+import { createClient } from '@supabase/supabase-js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+
+const supabaseUrl = process.env.SUPABASE_URL || '';
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY || '';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Set CORS headers
@@ -44,62 +48,52 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   console.log(`[Dashboard API] Processing valid lead for ${website} (Type: ${type}, Name: ${name}, Email: ${email})`);
 
   try {
-    // 1. Find leads.json URL in the blob store
-    const { blobs } = await list();
-    const leadsBlob = blobs.find(b => b.pathname === 'leads.json');
-
-    let leadsData: Record<string, { signup: number; contact: number }> = {};
-
-    if (leadsBlob) {
-      const fileRes = await fetch(leadsBlob.url);
-      if (fileRes.ok) {
-        leadsData = await fileRes.json();
-      } else {
-        console.warn(`[Dashboard API] Failed to fetch leads.json from blob url: ${leadsBlob.url}`);
-      }
-    } else {
-      console.log(`[Dashboard API] leads.json not found in blob store. Initializing new file.`);
-    }
-
     // Normalize website name here if needed
     let normalizedWebsite = website;
     if (normalizedWebsite === 'Novara') normalizedWebsite = 'Soltera Finance';
     if (normalizedWebsite === 'Meridian Capital Review') normalizedWebsite = 'The Report Desk';
     if (normalizedWebsite === 'Stellar Wealth') normalizedWebsite = 'The Ledger Capital';
 
-    // 2. Initialize or update the counts
-    if (!leadsData[normalizedWebsite]) {
-      leadsData[normalizedWebsite] = { signup: 0, contact: 0 };
-    }
-    // Also merge old data if it existed under the old name
-    if (normalizedWebsite === 'Soltera Finance' && leadsData['Novara']) {
-       leadsData[normalizedWebsite].signup += leadsData['Novara'].signup || 0;
-       leadsData[normalizedWebsite].contact += leadsData['Novara'].contact || 0;
-       delete leadsData['Novara'];
-    }
-    if (normalizedWebsite === 'The Report Desk' && leadsData['Meridian Capital Review']) {
-       leadsData[normalizedWebsite].signup += leadsData['Meridian Capital Review'].signup || 0;
-       leadsData[normalizedWebsite].contact += leadsData['Meridian Capital Review'].contact || 0;
-       delete leadsData['Meridian Capital Review'];
-    }
-    if (normalizedWebsite === 'The Ledger Capital' && leadsData['Stellar Wealth']) {
-       leadsData[normalizedWebsite].signup += leadsData['Stellar Wealth'].signup || 0;
-       leadsData[normalizedWebsite].contact += leadsData['Stellar Wealth'].contact || 0;
-       delete leadsData['Stellar Wealth'];
+    // Fetch existing data
+    const { data: existingData, error: fetchError } = await supabase
+      .from('website_leads')
+      .select('*')
+      .eq('website', normalizedWebsite)
+      .single();
+
+    // PGRST116 means no rows returned, which is fine for a new website
+    if (fetchError && fetchError.code !== 'PGRST116') {
+      throw fetchError;
     }
 
-    leadsData[normalizedWebsite][type as 'signup' | 'contact'] += 1;
+    let signupCount = existingData?.signup || 0;
+    let contactCount = existingData?.contact || 0;
 
-    // 3. Write back to blob store
-    const updatedBlob = await put('leads.json', JSON.stringify(leadsData), {
-      access: 'public',
-      addRandomSuffix: false,
-      allowOverwrite: true
+    if (type === 'signup') {
+      signupCount += 1;
+    } else if (type === 'contact') {
+      contactCount += 1;
+    }
+
+    const { error: upsertError } = await supabase
+      .from('website_leads')
+      .upsert({
+        website: normalizedWebsite,
+        signup: signupCount,
+        contact: contactCount
+      });
+
+    if (upsertError) throw upsertError;
+
+    console.log(`[Dashboard API] Successfully updated counts for ${normalizedWebsite}. New totals: signup=${signupCount}, contact=${contactCount}`);
+
+    // Return the specific website update format
+    return res.status(200).json({ 
+      success: true, 
+      data: {
+        [normalizedWebsite]: { signup: signupCount, contact: contactCount }
+      }
     });
-
-    console.log(`[Dashboard API] Successfully updated counts for ${normalizedWebsite}. New totals:`, leadsData[normalizedWebsite]);
-
-    return res.status(200).json({ success: true, data: leadsData, url: updatedBlob.url });
   } catch (err: any) {
     console.error('[Dashboard API] Error updating leads:', err);
     return res.status(500).json({ error: err.message || 'Internal Server Error' });

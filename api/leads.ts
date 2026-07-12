@@ -1,5 +1,9 @@
-import { list } from '@vercel/blob';
+import { createClient } from '@supabase/supabase-js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+
+const supabaseUrl = process.env.SUPABASE_URL || '';
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY || '';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -10,16 +14,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { blobs } = await list();
-    const leadsBlob = blobs.find(b => b.pathname === 'leads.json');
+    const { data, error } = await supabase.from('website_leads').select('*');
+    if (error) throw error;
 
-    let leadsData = {};
-    if (leadsBlob) {
-      const fileRes = await fetch(leadsBlob.url);
-      if (fileRes.ok) {
-        leadsData = await fileRes.json();
-      }
+    let leadsData: Record<string, any> = {};
+    if (data) {
+      data.forEach((row) => {
+        leadsData[row.website] = {
+          signup: row.signup || 0,
+          contact: row.contact || 0
+        };
+      });
     }
+
     return res.status(200).json(leadsData);
   } catch (err: any) {
     const rawMsg = (err.message || err.toString() || "");
