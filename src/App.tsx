@@ -15,36 +15,36 @@ interface WebsiteInfo {
 }
 
 const WEBSITES: WebsiteInfo[] = [
-  // July 2026 batch
-  { name: 'The Ledger Capital', folder: 'JULY Autodigx/stellar-wallet', month: 'July 2026' },
-  { name: 'VortexCrypto', folder: 'JULY Autodigx/chronicle-consult', month: 'July 2026' },
-  { name: 'The Asset Office', folder: 'JULY Autodigx/global-wealth-architects', month: 'July 2026' },
-  { name: 'Soltera Finance', folder: 'JULY Autodigx/Soltera Finance', month: 'July 2026' },
+  // July 2026 batch (alphabetical)
   { name: 'Revelle Partners', folder: 'JULY Autodigx/soltera-vision', month: 'July 2026' },
+  { name: 'Soltera Finance', folder: 'JULY Autodigx/Soltera Finance', month: 'July 2026' },
+  { name: 'The Asset Office', folder: 'JULY Autodigx/global-wealth-architects', month: 'July 2026' },
+  { name: 'The Ledger Capital', folder: 'JULY Autodigx/stellar-wallet', month: 'July 2026' },
   { name: 'The Report Desk', folder: 'JULY Autodigx/The Report Desk', month: 'July 2026' },
+  { name: 'VortexCrypto', folder: 'JULY Autodigx/chronicle-consult', month: 'July 2026' },
   { name: 'Zyvora Finance', folder: 'JULY Autodigx/Zyvera Capital', month: 'July 2026' },
-  
-  // June 2026 batch
+
+  // June 2026 batch (alphabetical)
   { name: 'Aetheris', folder: 'Aetheris Crypto/aetheris-react', month: 'June 2026' },
   { name: 'AtlasLedger', folder: 'Atlas Ledger (17)', month: 'June 2026' },
   { name: 'Aurore Capital', folder: 'Aurore Capital/quantnova-ai-insights-main', month: 'June 2026' },
   { name: 'Bulletin Financier', folder: 'Bulletin Finance', month: 'June 2026' },
-  { name: 'Lumen', folder: 'Cipher Capital (18)', month: 'June 2026' },
+  { name: 'Capital Chronicle', folder: 'european-insight', month: 'June 2026' },
   { name: 'Ciphera Intelligence', folder: 'Ciphera Intelligence/kinetic-canvas-main', month: 'June 2026' },
   { name: 'CipherWire', folder: 'crypto-chronicle-pro', month: 'June 2026' },
+  { name: 'Cryptora', folder: 'intelligent-finance-hub', month: 'June 2026' },
   { name: 'Elite Chain', folder: 'Elite Chain AI/apex-capital-main', month: 'June 2026' },
-  { name: 'Capital Chronicle', folder: 'european-insight', month: 'June 2026' },
+  { name: 'Évolis Journal', folder: 'Novalis Journele (17)', month: 'June 2026' },
   { name: 'Finastra Daily', folder: 'Finastra Daily', month: 'June 2026' },
   { name: 'Futuria Network', folder: 'Futuria Network/Futuria-Ventures-main', month: 'June 2026' },
-  { name: 'Nova Ledger', folder: 'Golden Black (20)', month: 'June 2026' },
-  { name: 'Cryptora', folder: 'intelligent-finance-hub', month: 'June 2026' },
   { name: 'Le Capital Moderne', folder: 'Le moderne capitale (16)', month: 'June 2026' },
   { name: 'Le Temps Moderne', folder: 'Le Temps Moderne/the-digital-ledger-main', month: 'June 2026' },
+  { name: 'Lumen', folder: 'Cipher Capital (18)', month: 'June 2026' },
+  { name: 'Lumière Chain', folder: 'novaire-capital-intelligence-elevated', month: 'June 2026' },
   { name: 'Maison Bloc', folder: 'Maison Bloc/stellar-wealth-main', month: 'June 2026' },
   { name: 'Monde Quotidien', folder: 'Monde Quotidien/crypto-chronicle-main', month: 'June 2026' },
-  { name: 'Lumière Chain', folder: 'novaire-capital-intelligence-elevated', month: 'June 2026' },
-  { name: 'Évolis Journal', folder: 'Novalis Journele (17)', month: 'June 2026' },
-  { name: 'OrbitX Finance', folder: 'Orbit X (19)', month: 'June 2026' }
+  { name: 'Nova Ledger', folder: 'Golden Black (20)', month: 'June 2026' },
+  { name: 'OrbitX Finance', folder: 'Orbit X (19)', month: 'June 2026' },
 ];
 
 export default function App() {
