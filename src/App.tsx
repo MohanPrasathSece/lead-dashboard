@@ -16,6 +16,7 @@ interface WebsiteInfo {
 
 const WEBSITES: WebsiteInfo[] = [
   // July 2026 batch (alphabetical)
+  { name: 'Novara', folder: 'JULY Autodigx/Novara Project 3', month: 'July 2026' },
   { name: 'Revelle Partners', folder: 'JULY Autodigx/soltera-vision', month: 'July 2026' },
   { name: 'Soltera Finance', folder: 'JULY Autodigx/Soltera Finance', month: 'July 2026' },
   { name: 'The Asset Office', folder: 'JULY Autodigx/global-wealth-architects', month: 'July 2026' },

@@ -53,7 +53,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     // Normalize website name here if needed
     let normalizedWebsite = website;
-    if (normalizedWebsite === 'Novara') normalizedWebsite = 'Soltera Finance';
     if (normalizedWebsite === 'Meridian Capital Review') normalizedWebsite = 'The Report Desk';
     if (normalizedWebsite === 'Stellar Wealth') normalizedWebsite = 'The Ledger Capital';
 
