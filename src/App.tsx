@@ -45,6 +45,7 @@ const WEBSITES: WebsiteInfo[] = [
   { name: 'Monde Quotidien', folder: 'Monde Quotidien/crypto-chronicle-main', month: 'June 2026' },
   { name: 'Nova Ledger', folder: 'Golden Black (20)', month: 'June 2026' },
   { name: 'OrbitX Finance', folder: 'Orbit X (19)', month: 'June 2026' },
+  { name: 'VertexIQ', folder: 'VertexIQ Integration', month: 'June 2026' },
 ];
 
 export default function App() {
@@ -246,13 +247,7 @@ function WebsiteCard({ site, counts = { signup: 0, contact: 0 } }: { site: Websi
       <div className="card-header">
         <div className="card-title-group">
           <h3 className="card-name">{site.name}</h3>
-          <p className="card-folder" title={site.folder}>
-            {site.folder}
-          </p>
         </div>
-        <span className={`card-badge ${site.month === 'July 2026' ? 'badge-cyan' : 'badge-purple'}`}>
-          {site.month.split(' ')[0]}
-        </span>
       </div>
 
       <div className="card-counters">

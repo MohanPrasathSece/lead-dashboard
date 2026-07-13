@@ -30,7 +30,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   console.log(`[Dashboard API] Incoming payload:`, req.body);
 
-  const { website, type, name, email } = req.body;
+  let { website, type, name, email } = req.body;
+  if (!website && ['signup', 'contact'].includes(type)) {
+    website = 'VertexIQ';
+  }
   if (!website || !['signup', 'contact'].includes(type)) {
     console.error(`[Dashboard API] Invalid payload parameters. website: ${website}, type: ${type}`);
     return res.status(400).json({ error: 'Invalid payload parameters' });
