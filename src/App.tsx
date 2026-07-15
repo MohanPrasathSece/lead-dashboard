@@ -24,6 +24,8 @@ const WEBSITES: WebsiteInfo[] = [
   { name: 'The Report Desk', folder: 'JULY Autodigx/The Report Desk', month: 'July 2026' },
   { name: 'VortexCrypto', folder: 'JULY Autodigx/chronicle-consult', month: 'July 2026' },
   { name: 'Zyvora Finance', folder: 'JULY Autodigx/Zyvera Capital', month: 'July 2026' },
+  { name: 'Lumen', folder: 'JULY Autodigx/Lumen', month: 'July 2026' },
+  { name: 'NexGen Crypto', folder: 'JULY Autodigx/glass-stratosphere', month: 'July 2026' },
 
   // June 2026 batch (alphabetical)
   { name: 'Aetheris', folder: 'Aetheris Crypto/aetheris-react', month: 'June 2026' },
