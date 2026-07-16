@@ -16,16 +16,17 @@ interface WebsiteInfo {
 
 const WEBSITES: WebsiteInfo[] = [
   // July 2026 batch (alphabetical)
-  { name: 'Solara Assets', folder: 'JULY Autodigx/Solara Assets', month: 'July 2026' },
+  { name: 'Lumen', folder: 'JULY Autodigx/Lumen', month: 'July 2026' },
+  { name: 'NexGen Crypto', folder: 'JULY Autodigx/glass-stratosphere', month: 'July 2026' },
   { name: 'Revelle Partners', folder: 'JULY Autodigx/soltera-vision', month: 'July 2026' },
+  { name: 'Solara Assets', folder: 'JULY Autodigx/Solara Assets', month: 'July 2026' },
   { name: 'Soltera Finance', folder: 'JULY Autodigx/Soltera Finance', month: 'July 2026' },
   { name: 'The Asset Office', folder: 'JULY Autodigx/global-wealth-architects', month: 'July 2026' },
   { name: 'The Ledger Capital', folder: 'JULY Autodigx/stellar-wallet', month: 'July 2026' },
   { name: 'The Report Desk', folder: 'JULY Autodigx/The Report Desk', month: 'July 2026' },
+  { name: 'Veterus Vision', folder: 'JULY Autodigx/veterus-vision', month: 'July 2026' },
   { name: 'VortexCrypto', folder: 'JULY Autodigx/chronicle-consult', month: 'July 2026' },
   { name: 'Zyvora Finance', folder: 'JULY Autodigx/Zyvera Capital', month: 'July 2026' },
-  { name: 'Lumen', folder: 'JULY Autodigx/Lumen', month: 'July 2026' },
-  { name: 'NexGen Crypto', folder: 'JULY Autodigx/glass-stratosphere', month: 'July 2026' },
 
   // June 2026 batch (alphabetical)
   { name: 'Aetheris', folder: 'Aetheris Crypto/aetheris-react', month: 'June 2026' },
