@@ -16,6 +16,7 @@ interface WebsiteInfo {
 
 const WEBSITES: WebsiteInfo[] = [
   // July 2026 batch (alphabetical)
+  { name: 'Aurelian Capital', folder: 'JULY Autodigx/apex-crypto-wealth', month: 'July 2026' },
   { name: 'Lumen', folder: 'JULY Autodigx/Lumen', month: 'July 2026' },
   { name: 'NexGen Crypto', folder: 'JULY Autodigx/glass-stratosphere', month: 'July 2026' },
   { name: 'Revelle Partners', folder: 'JULY Autodigx/soltera-vision', month: 'July 2026' },
