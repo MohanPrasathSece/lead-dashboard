@@ -16,9 +16,13 @@ interface WebsiteInfo {
 
 const WEBSITES: WebsiteInfo[] = [
   // July 2026 batch (alphabetical)
+  { name: 'Alpha Chain Vault', folder: 'JULY AUTODIGIX/italian 1', month: 'July 2026' },
   { name: 'Aurelian Capital', folder: 'JULY Autodigx/apex-crypto-wealth', month: 'July 2026' },
+  { name: 'CryptoVest Capital', folder: 'JULY AUTODIGIX/italian 2', month: 'July 2026' },
+  { name: 'Everstone Finance', folder: 'JULY AUTODIGIX/italian 3', month: 'July 2026' },
   { name: 'Fortress Capital', folder: 'JULY Autodigx/fortress-capital', month: 'July 2026' },
   { name: 'Lumen', folder: 'JULY Autodigx/Lumen', month: 'July 2026' },
+  { name: 'Meridian Capital', folder: 'JULY AUTODIGIX/italian 4', month: 'July 2026' },
   { name: 'NexGen Crypto', folder: 'JULY Autodigx/glass-stratosphere', month: 'July 2026' },
   { name: 'Revelle Partners', folder: 'JULY Autodigx/soltera-vision', month: 'July 2026' },
   { name: 'Solara Assets', folder: 'JULY Autodigx/Solara Assets', month: 'July 2026' },
