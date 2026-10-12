@@ -56,7 +56,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (normalizedWebsite === 'Meridian Capital Review') normalizedWebsite = 'The Report Desk';
     if (normalizedWebsite === 'Stellar Wealth') normalizedWebsite = 'The Ledger Capital';
 
-    // Fetch existing data
+    // Fetch existing aggregate data
     const { data: existingData, error: fetchError } = await supabase
       .from('website_leads')
       .select('*')
@@ -77,6 +77,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       contactCount += 1;
     }
 
+    // 1. Update totals in website_leads table
     const { error: upsertError } = await supabase
       .from('website_leads')
       .upsert({
@@ -86,6 +87,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
 
     if (upsertError) throw upsertError;
+
+    // 2. Insert individual lead directly into Supabase recent_leads table
+    const { error: recentError } = await supabase
+      .from('recent_leads')
+      .insert({
+        website: normalizedWebsite,
+        type,
+        name: name || 'Lead Submission',
+        email: email || '',
+        created_at: new Date().toISOString()
+      });
+
+    if (recentError) {
+      console.error('[Dashboard API] Error inserting into recent_leads table:', recentError.message);
+    } else {
+      console.log(`[Dashboard API] Successfully logged lead to Supabase recent_leads for ${normalizedWebsite}`);
+    }
 
     console.log(`[Dashboard API] Successfully updated counts for ${normalizedWebsite}. New totals: signup=${signupCount}, contact=${contactCount}`);
 
