@@ -30,7 +30,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   console.log(`[Dashboard API] Incoming payload:`, req.body);
 
-  let { website, type, name, email } = req.body;
+  let { website, type, name, email, phone, country, message } = req.body;
   if (!website && ['signup', 'contact'].includes(type)) {
     website = 'VertexIQ';
   }
@@ -48,7 +48,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({ success: true, ignored: true, message: 'Ignored test lead' });
   }
 
-  console.log(`[Dashboard API] Processing valid lead for ${website} (Type: ${type}, Name: ${name}, Email: ${email})`);
+  console.log(`[Dashboard API] Processing valid lead for ${website} (Type: ${type}, Name: ${name}, Email: ${email}, Phone: ${phone || ''}, Country: ${country || ''})`);
 
   try {
     // Normalize website name here if needed
@@ -96,6 +96,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         type,
         name: name || 'Lead Submission',
         email: email || '',
+        phone: phone || null,
+        country: country || null,
+        message: message || null,
         created_at: new Date().toISOString()
       });
 

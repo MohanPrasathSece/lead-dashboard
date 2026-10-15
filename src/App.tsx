@@ -21,6 +21,8 @@ export interface RecentLead {
   name?: string;
   email?: string;
   phone?: string;
+  country?: string;
+  message?: string;
   created_at: string;
 }
 
@@ -310,7 +312,9 @@ export default function App() {
       const matchesSearch =
         lead.website.toLowerCase().includes(recentSearch.toLowerCase()) ||
         (lead.name && lead.name.toLowerCase().includes(recentSearch.toLowerCase())) ||
-        (lead.email && lead.email.toLowerCase().includes(recentSearch.toLowerCase()));
+        (lead.email && lead.email.toLowerCase().includes(recentSearch.toLowerCase())) ||
+        (lead.phone && lead.phone.toLowerCase().includes(recentSearch.toLowerCase())) ||
+        (lead.country && lead.country.toLowerCase().includes(recentSearch.toLowerCase()));
 
       const matchesType = recentTypeFilter === 'All' || lead.type === recentTypeFilter;
       const matchesProject = recentProjectFilter === 'All' || lead.website === recentProjectFilter;
@@ -962,6 +966,27 @@ export default function App() {
                                           >
                                             {copiedId === lead.id ? <Icons.Check /> : <Icons.Copy />}
                                           </button>
+                                        </div>
+                                      )}
+                                      {lead.phone && (
+                                        <div className="submitter-email-row">
+                                          <span className="submitter-email-text font-mono">
+                                            {lead.phone}
+                                          </span>
+                                          <button
+                                            onClick={() => copyToClipboard(lead.phone!, `${lead.id}-phone`)}
+                                            className="copy-icon-btn"
+                                            title="Copy phone to clipboard"
+                                          >
+                                            {copiedId === `${lead.id}-phone` ? <Icons.Check /> : <Icons.Copy />}
+                                          </button>
+                                        </div>
+                                      )}
+                                      {lead.country && (
+                                        <div className="submitter-email-row">
+                                          <span className="submitter-email-text font-mono" style={{ color: 'var(--text-muted)' }}>
+                                            {lead.country}
+                                          </span>
                                         </div>
                                       )}
                                     </div>

@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS public.recent_leads (
     name TEXT,
     email TEXT,
     phone TEXT,
+    country TEXT,
     message TEXT,
     created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );
