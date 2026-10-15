@@ -24,7 +24,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       .from('recent_leads')
       .select('*')
       .order('created_at', { ascending: false })
-      .limit(200);
+      .limit(2000);
 
     if (error) {
       console.error('[recent-leads API] Supabase error:', error.message);
